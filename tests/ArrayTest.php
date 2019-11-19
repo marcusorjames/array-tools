@@ -8,11 +8,11 @@ class ArrayTest extends TestCase
 {
     public function testRename()
     {
-        $map            = [
+        $map = [
             'apples'  => 'pears',
             'bananas' => 'oranges',
         ];
-        $data           = [
+        $data = [
             'apples'  => 1,
             'bananas' => 2,
             'oranges' => 3,
@@ -29,8 +29,8 @@ class ArrayTest extends TestCase
 
     public function testFlatten()
     {
-        $input = [[1],[2],[3]];
-        $expectedResult = [1,2,3];
+        $input          = [[1], [2], [3]];
+        $expectedResult = [1, 2, 3];
         $this->assertEquals($expectedResult, Arrays::flatten($input));
     }
 }
