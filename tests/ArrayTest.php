@@ -71,4 +71,32 @@ class ArrayTest extends TestCase
         ];
         $this->assertEquals($expectedResult, Arrays::flatten($input, '.'));
     }
+
+    public function testIntersectKeyRecursive()
+    {
+        $array1 = [
+            'book'         => 'Dune',
+            'housePlanets' => [
+                'Atreides'  => 'Caladan',
+                'Harkonnen' => 'Giedi Prime',
+            ],
+            'rating'       => '*****',
+        ];
+
+        $array2 = [
+            'book'         => null,
+            'housePlanets' => [
+                'Harkonnen' => null,
+            ]
+        ];
+
+        $expectedResult = [
+            'book'         => 'Dune',
+            'housePlanets' => [
+                'Harkonnen' => 'Giedi Prime',
+            ],
+        ];
+
+        $this->assertEquals($expectedResult, Arrays::intersectKeyRecursive($array1, $array2));
+    }
 }

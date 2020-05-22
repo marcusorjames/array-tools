@@ -33,4 +33,16 @@ class Arrays
 
         return $return;
     }
+
+    public static function intersectKeyRecursive(array $array1, array $array2)
+    {
+        $array1 = array_intersect_key($array1, $array2);
+        foreach ($array1 as $key => &$value) {
+            if (is_array($value) && is_array($array2[ $key ])) {
+                $value = self::intersectKeyRecursive($value, $array2[ $key ]);
+            }
+        }
+
+        return $array1;
+    }
 }
