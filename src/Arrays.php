@@ -17,12 +17,20 @@ class Arrays
         );
     }
 
-    public static function flatten(array $array): array
+    public static function flatten(array $record, string $glue = null, $namespace = ''): array
     {
-        $flatten = [];
-        array_walk_recursive($array, function ($value) use (&$flatten) {
-            $flatten[] = $value;
-        });
-        return $flatten;
+        $return = [];
+        foreach ($record as $key => $value) {
+            if (is_array($value)) {
+                $return = array_merge(
+                    $return,
+                    self::flatten($value, $glue, is_null($glue) ?: $namespace . $key . $glue)
+                );
+            } else {
+                $return[$namespace . $key] = $value;
+            }
+        }
+
+        return $return;
     }
 }
