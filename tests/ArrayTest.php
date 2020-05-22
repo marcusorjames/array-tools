@@ -8,11 +8,11 @@ class ArrayTest extends TestCase
 {
     public function testRename()
     {
-        $map = [
+        $map            = [
             'apples'  => 'pears',
             'bananas' => 'oranges',
         ];
-        $data = [
+        $data           = [
             'apples'  => 1,
             'bananas' => 2,
             'oranges' => 3,
@@ -32,5 +32,43 @@ class ArrayTest extends TestCase
         $input          = [[1], [2], [3]];
         $expectedResult = [1, 2, 3];
         $this->assertEquals($expectedResult, Arrays::flatten($input));
+    }
+
+    public function testFlattenWithGlue()
+    {
+        $input = [
+            'book'         => 'Dune',
+            'housePlanets' => [
+                'Atreides'  => 'Caladan',
+                'Harkonnen' => 'Giedi Prime',
+            ],
+            'houses'       => [
+                [
+                    'name'       => 'Atreides',
+                    'homePlanet' => 'Caladan',
+                    'leader'     => 'Duke Leto',
+                ],
+                [
+                    'name'       => 'Harkonnen',
+                    'homePlanet' => 'Geidi Prime',
+                    'leader'     => 'Baron',
+                ]
+            ],
+            'rating'       => '*****',
+        ];
+
+        $expectedResult = [
+            'book'                   => 'Dune',
+            'housePlanets.Atreides'  => 'Caladan',
+            'housePlanets.Harkonnen' => 'Giedi Prime',
+            'houses.0.name'          => 'Atreides',
+            'houses.0.homePlanet'    => 'Caladan',
+            'houses.0.leader'        => 'Duke Leto',
+            'houses.1.name'          => 'Harkonnen',
+            'houses.1.homePlanet'    => 'Geidi Prime',
+            'houses.1.leader'        => 'Baron',
+            'rating'                 => '*****',
+        ];
+        $this->assertEquals($expectedResult, Arrays::flatten($input, '.'));
     }
 }
