@@ -11,7 +11,7 @@ use MOJ\Utils\Arrays;
 ### Rename Array keys
 ```php
 $input = ['foo', 'bar'];
-$renamedArray = Arrays::rename(['foo' => 'hello', 'bar' => 'world'])
+$renamedArray = Arrays::rename(['foo' => 'hello', 'bar' => 'world']);
 // returns $renamedArray = ['hello', 'world']
 ```
 
@@ -22,7 +22,7 @@ $flattenedArray = Arrays::flatten($input);
 // returns $flattenedArray = [0, 1, 2];
 ```
 
-## Flatten Array with glue
+### Flatten Array with glue
 ```php
 $input = [
     'book'         => 'Dune',
@@ -59,3 +59,30 @@ $flattendArray = Arrays::flatten($input, '.');
 //        ];
 ```
 
+### Intersect Array by key recursively
+```php
+$array1 = [
+    'book'         => 'Dune',
+    'housePlanets' => [
+        'Atreides'  => 'Caladan',
+        'Harkonnen' => 'Giedi Prime',
+    ],
+    'rating'       => '*****',
+];
+
+$array2 = [
+    'book'         => null,
+    'housePlanets' => [
+        'Harkonnen' => null,
+    ]
+];
+
+$intersectedArray = Arrays::intersectKeyRecursive($array1, $array2);
+
+//        $intersectedArray = [
+//            'book'         => 'Dune',
+//            'housePlanets' => [
+//                'Harkonnen' => 'Giedi Prime',
+//            ],
+//        ];
+```
